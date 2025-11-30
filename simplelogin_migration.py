@@ -6,8 +6,18 @@ import sys
 BASE_URL = "https://app.simplelogin.io/api"
 
 def ask_user_configuration():
-    print("\n" + "="*60)
-    print("🔐 CONFIGURATION DE SÉCURITÉ SIMPLELOGIN")
+    print(r"""
+   _____ _                 _       _                _       
+  / ____(_)               | |     | |              (_)      
+ | (___  _ _ __ ___  _ __ | | ___ | |     ___   ___ _ _ __  
+  \___ \| | '_ ` _ \| '_ \| |/ _ \| |    / _ \ / _ \ | '_ \ 
+  ____) | | | | | | | |_) | |  __/| |___| (_) |  __/ | | | |
+ |_____/|_|_| |_| |_| .__/|_|\___||______\___/ \___|_|_| |_|
+                    | |   MIGRATOR  -  v1.0 (HALL4Y Edition)                        
+                    |_|                                     
+    """)
+    print("="*60)
+    print("🔒 CONFIGURATION DE SÉCURITÉ")
     print("="*60)
     print("\n📋 INSTRUCTIONS :")
     print("   1. Allez sur https://app.simplelogin.io/dashboard/api_key")
@@ -63,7 +73,6 @@ def main():
                 print(f"⏩ Déjà ok : {alias['email']}")
                 continue
             
-            # Mise à jour
             requests.put(f"{BASE_URL}/aliases/{alias['id']}", headers=headers, json={"mailbox_ids": [target_id]})
             print(f"✅ Migré : {alias['email']}")
             time.sleep(0.1)
