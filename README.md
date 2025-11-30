@@ -3,6 +3,7 @@
 Un outil simple pour migrer massivement tous vos alias **SimpleLogin** vers une nouvelle adresse email (Mailbox) en une seule fois.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![Platform](https://img.shields.io/badge/macOS-Compatible-green)
+![Démonstration](https://github.com/user-attachments/assets/2884cc83-c240-44a4-bfa1-991f36ca7696)
 
 ## 🍎 Mode d'emploi (macOS)
 
