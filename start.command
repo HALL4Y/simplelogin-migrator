@@ -28,4 +28,4 @@ echo ""
 
 echo ""
 echo "================================================="
-read -p "👋 Terminé. Appuyez sur Entrée pour fermer..."
+read -p "👋 Terminé. Supprimez votre clé API de l'interface SimpleLogon (recommandé), puis, appuyez sur Entrée pour fermer..."

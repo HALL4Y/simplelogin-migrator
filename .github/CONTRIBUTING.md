@@ -1,12 +1,13 @@
-# Contribuer à SimpleLogin Migrator
+# Contribuer au projet
 
-## ⚠️ Attention Sécurité
-Ce script manipule des clés API. Si vous proposez du code :
-1. Ne loggez jamais les clés API.
-2. N'envoyez jamais de données vers un serveur tiers.
+Merci de l'intérêt que vous portez à ce projet !
 
-## Rapport de Bug
-Utilisez le modèle d'Issue fourni. Collez les logs d'erreur.
+## 🐛 Signaler un bug
+Utilisez l'onglet **Issues** de ce dépôt.
+Soyez précis : indiquez votre version de macOS.
 
-## Dons
-Le développement est bénévole. Les cafés sont appréciés via le bouton **Sponsor**.
+## 💡 Proposer une amélioration
+Les "Pull Requests" sont les bienvenues.
+
+## ☕ Soutien
+Le développement est bénévole. Si cet outil vous aide, les cafés sont appréciés via le bouton **Sponsor**.
