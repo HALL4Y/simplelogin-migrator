@@ -5,35 +5,44 @@ import sys
 # --- CONFIGURATION CONSTANTE ---
 BASE_URL = "https://app.simplelogin.io/api"
 
+def mask_email(email):
+    """Masque l'email pour l'affichage sécurisé (ex: a***@b.com)"""
+    if not email or "@" not in email: return "******"
+    user, domain = email.split("@")
+    if len(user) > 2:
+        return f"{user[:2]}****@{domain}"
+    return f"****@{domain}"
+
 def ask_user_configuration():
-    print(r"""
-   _____ _                 _       _                _       
-  / ____(_)               | |     | |              (_)      
- | (___  _ _ __ ___  _ __ | | ___ | |     ___   ___ _ _ __  
-  \___ \| | '_ ` _ \| '_ \| |/ _ \| |    / _ \ / _ \ | '_ \ 
-  ____) | | | | | | | |_) | |  __/| |___| (_) |  __/ | | | |
- |_____/|_|_| |_| |_| .__/|_|\___||______\___/ \___|_|_| |_|
-                    | |   MIGRATOR  -  v1.0 (HALL4Y Edition)                        
-                    |_|                                     
-    """)
-    print("="*60)
-    print("🔒 CONFIGURATION DE SÉCURITÉ")
-    print("="*60)
+    # NOUVEAU LOGO COMPACT (Cadre Pro)
+    print("\n")
+    print(" " + "╔" + "═"*60 + "╗")
+    print(" " + "║" + " "*14 + "SIMPLELOGIN BULK MIGRATOR" + " "*21 + "║")
+    print(" " + "║" + " "*17 + "v1.2 - HALL4Y Edition" + " "*22 + "║")
+    print(" " + "╚" + "═"*60 + "╝")
+    print("\n" + " " + "="*60)
+    print(" 🔒 CONFIGURATION DE SÉCURITÉ")
+    print(" " + "="*60)
+    
     print("\n📋 INSTRUCTIONS :")
     print("   1. Allez sur https://app.simplelogin.io/dashboard/api_key")
     print("   2. Créez/Copiez votre clé API")
     
+    # On utilise getpass si possible, sinon input standard mais on ne l'affiche pas
     api_key = input("\n👉 Collez votre clé API ici : ").strip()
     if not api_key: sys.exit(1)
 
     while True:
         target_email = input("\n📧 Nouvel email de destination : ").strip()
         if not target_email: continue
-        if input(f"   ❓ Confirmer '{target_email}' ? (O/N) : ").lower() == 'o':
+        
+        # Affichage masqué pour la confirmation
+        safe_email = mask_email(target_email)
+        if input(f"   ❓ Confirmer '{safe_email}' ? (O/N) : ").lower() == 'o':
             return api_key, target_email
 
 def get_mailbox_id(email, headers):
-    print(f"\n🔍 Recherche ID pour : {email}...")
+    print(f"\n🔍 Recherche ID pour la mailbox...") # On n'affiche plus l'email en clair ici
     resp = requests.get(f"{BASE_URL}/v2/mailboxes", headers=headers)
     if resp.status_code != 200: raise Exception(f"Erreur API: {resp.text}")
     for mb in resp.json().get("mailboxes", []):
@@ -63,18 +72,19 @@ def main():
             print("Aucun alias trouvé.")
             return
 
-        print(f"\n⚠️  MIGRATION MASSIVE : {len(aliases)} alias -> {new_email}")
+        safe_email = mask_email(new_email)
+        print(f"\n⚠️  MIGRATION MASSIVE : {len(aliases)} alias -> {safe_email}")
         if input("👉 Taper 'go' pour lancer : ").lower() != 'go': return
 
         print("\n🚀 Exécution...")
         for alias in aliases:
             current_ids = [mb['id'] for mb in alias['mailboxes']]
             if target_id in current_ids and len(current_ids) == 1:
-                print(f"⏩ Déjà ok : {alias['email']}")
+                print(f"⏩ Déjà ok : {mask_email(alias['email'])}")
                 continue
             
             requests.put(f"{BASE_URL}/aliases/{alias['id']}", headers=headers, json={"mailbox_ids": [target_id]})
-            print(f"✅ Migré : {alias['email']}")
+            print(f"✅ Migré : {mask_email(alias['email'])}")
             time.sleep(0.1)
             
         print("\n🏁 TERMINÉ.")
