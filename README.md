@@ -40,5 +40,5 @@ Le plus haut niveau de sécurité en script :
 <img src="https://github.com/user-attachments/assets/6687783c-eddc-4c4d-bccb-9da51d7ab308" width="500" alt="transcient">
 
 ---
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I3RJTIK)\
-*Développé par HALL4Y.*
+*Développé par HALL4Y.*\
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I3RJTIK)
