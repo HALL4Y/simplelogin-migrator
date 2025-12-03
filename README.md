@@ -1,4 +1,4 @@
-# 🚀 SimpleLogin Bulk Migrator
+# 🚀 SimpleLogin Bulk Migrator (Zero-Trust ed.)
 <img alt="image" src="https://github.com/user-attachments/assets/9bfe4e9c-86ad-49d2-a4fb-0a93fbb15f37" width="500" alt="Logo SimpleLogin Migrator"/>
 
 Un outil simple pour migrer massivement tous vos alias **SimpleLogin**\
