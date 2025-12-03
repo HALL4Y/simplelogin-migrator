@@ -2,7 +2,8 @@
 <img alt="image" src="https://github.com/user-attachments/assets/9bfe4e9c-86ad-49d2-a4fb-0a93fbb15f37" width="500" alt="Logo SimpleLogin Migrator"/>
 
 Un outil simple pour migrer massivement tous vos alias **SimpleLogin**\
-vers une nouvelle adresse email (Mailbox) en une seule fois.
+vers une nouvelle adresse email (Mailbox) en une seule fois.\
+C'est aussi le script le plus sécurisé en terme de protection possible.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![Platform](https://img.shields.io/badge/macOS-Compatible-green)
 
