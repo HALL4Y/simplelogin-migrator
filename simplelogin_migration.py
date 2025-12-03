@@ -3,7 +3,7 @@ import time
 import sys
 import keyring
 import getpass
-import subprocess  # Nécessaire pour parler au presse-papier macOS
+import subprocess
 
 # --- CONFIGURATION CONSTANTE ---
 BASE_URL = "https://app.simplelogin.io/api"
@@ -20,19 +20,14 @@ def get_safe_log_string(email_str):
     except: return "******"
 
 def clear_clipboard():
-    """Vide le presse-papier macOS immédiatement."""
-    print("✂️  Exécution du nettoyage presse-papier...") # On l'annonce avant
+    """Vide le presse-papier macOS de force."""
     try:
-        # La commande 'pbcopy < /dev/null' vide le buffer
         subprocess.run("pbcopy < /dev/null", shell=True)
-        # On confirme que l'ordre est passé
-        print("✅  Presse-papier vidé.")
-    except Exception as e:
-        print(f"⚠️  Échec du nettoyage automatique : {e}")
+    except Exception:
+        pass
 
 def get_api_key_secure():
     """Demande la clé (Sans persistance long terme)."""
-    # Nettoyage préventif
     try:
         keyring.delete_password(SERVICE_ID, USER_ID)
     except:
@@ -48,16 +43,14 @@ def get_api_key_secure():
     
     api_key = getpass.getpass("👉 Collez votre clé API ici puis Entrée : ").strip()
     
-    # --- INTERVENTION IMMÉDIATE : NETTOYAGE PRESSE-PAPIER ---
     if api_key:
         clear_clipboard()
-    # --------------------------------------------------------
+        print("✂️  Presse-papier effacé par sécurité.")
     
     if not api_key:
         print("❌ Erreur : Clé vide.")
         sys.exit(1)
     
-    # Stockage temporaire sécurisé
     try:
         keyring.set_password(SERVICE_ID, USER_ID, api_key)
         return api_key
@@ -70,18 +63,38 @@ def ask_user_configuration():
     print("\n")
     print(" " + "╔" + "═"*60 + "╗")
     print(" " + "║" + " "*14 + "SIMPLELOGIN BULK MIGRATOR" + " "*21 + "║")
-    print(" " + "║" + " "*17 + "v2.4 - HALL4Y Edition" + " "*22 + "║")
+    print(" " + "║" + " "*17 + "v2.6 - HALL4Y Edition" + " "*22 + "║")
     print(" " + "╚" + "═"*60 + "╝")
     
     api_key = get_api_key_secure()
 
+    print("\n📧 CONFIGURATION DE LA DESTINATION")
+    print("   Pour éviter les erreurs, la saisie de l'email est masquée et doublée.")
+    
     while True:
-        target_email = input("\n📧 Nouvel email de destination : ").strip()
-        if not target_email: continue
+        # Saisie 1
+        email_1 = getpass.getpass("\n1️⃣  Entrez le nouvel email de destination : ").strip()
         
-        log_email = get_safe_log_string(target_email)
-        if input(f"   ❓ Confirmer '{log_email}' ? (O/N) : ").lower() == 'o':
-            return api_key, target_email
+        if not email_1:
+            continue
+
+        # Saisie 2
+        email_2 = getpass.getpass("2️⃣  Confirmez l'email de destination       : ").strip()
+
+        # Comparaison
+        if email_1 != email_2:
+            print("❌ Les adresses ne correspondent pas. Veuillez réessayer.")
+            continue
+            
+        if "@" not in email_1 or "." not in email_1:
+            print("❌ Format d'email invalide.")
+            continue
+            
+        # Si tout est bon, on valide
+        # On affiche juste le domaine pour confirmation visuelle safe
+        safe_preview = get_safe_log_string(email_1)
+        print(f"\n✅ Destination validée : {safe_preview}")
+        return api_key, email_1
 
 def get_mailbox_id(email, headers):
     print(f"\n🔍 Recherche ID pour la mailbox...") 
@@ -143,18 +156,14 @@ def main():
     
     finally:
         print("\n🧹 NETTOYAGE DE SÉCURITÉ EN COURS...")
-        
-        # 1. Nettoyage RAM
         if 'api_key' in locals():
             del api_key
             print("✅ Mémoire vive (RAM) effacée.")
-            
-        # 2. Nettoyage DISQUE (Keychain)
         try:
             keyring.delete_password(SERVICE_ID, USER_ID)
             print("✅ Trousseau d'accès (Disque) effacé.")
         except:
-            print("✅ Aucune trace résiduelle dans le Trousseau.")
+            pass
 
 if __name__ == "__main__":
     main()
