@@ -19,7 +19,7 @@ Cette méthode fonctionne sur tous les Mac, quelle que soit la version (Sequoia,
 
 *Le script va s'initialiser, installer ses composants et vous guider.*
 
-<img src="https://github.com/user-attachments/assets/5927d3ef-e896-4d81-a231-fe94011c17ed" width="400" alt="Logo Ascii SimpleLogin Migrator">
+
 
 ## ⚙️ Fonctionnement
 L'outil crée automatiquement une "bulle" isolée (environnement virtuel) pour fonctionner sans modifier votre système ni vos réglages.
