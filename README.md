@@ -12,27 +12,31 @@ C'est aussi le script le plus sécurisé en terme de protection possible.
 
 Cette méthode fonctionne sur tous les Mac, quelle que soit la version (Sequoia, Sonoma, Ventura, etc.).
 
-1. **Téléchargez** ce projet (Code > Download ZIP) et décompressez-le.
-2. Ouvrez l'application **Terminal** (Cmd+Espace, tapez "Terminal").
-3. Tapez `sh ` (écrivez **sh** suivi d'un **espace**).
-4. **Glissez le fichier `start.command`** depuis votre dossier directement dans la fenêtre du Terminal.
-5. Appuyez sur **Entrée**.
+A. **Téléchargez** ce projet (Code > Download ZIP) et décompressez-le.\
+B. Ouvrez l'application **Terminal** (Cmd+Espace, tapez "Terminal").
+1. **Glissez le fichier `start.command`** depuis votre dossier directement dans la fenêtre du Terminal.
+2. Appuyez sur **Entrée**.
+
+![howtodo](https://github.com/user-attachments/assets/b54510b3-341e-4876-9e0c-345353a5b47c)
 
 *Le script va s'initialiser, installer ses composants et vous guider.*
 
-
-
 ## ⚙️ Fonctionnement
-L'outil crée automatiquement une "bulle" isolée (environnement virtuel) pour fonctionner sans modifier votre système ni vos réglages.
+L'outil crée dans le dossier, une "bulle" isolée (environnement virtuel)\
+pour fonctionner sans modifier votre système ni vos réglages.
 
 ## 🔒 Sécurité
-* Le plus haut niveau de sécurité en script
-* Réduction des attaques par interception
-* Le script stock votre clé API dans votre trousseau Apple.
-* Votre email n'est jamais affiché intégralement
+Le plus haut niveau de sécurité en script :
+* Réduction des attaques par interception (channeling)
+* Stockage temporaire dans le trousseau Apple
+* Saisie masquée (Invisible à l'écran)
+* Effacement de la clé stockée en fin d'usage
+* Réduction des affichages d'email
+* Effacement de la mémoire vive
+* Effacement du presse-papier
 * Code 100% open-source.
 
-
+![capture](https://github.com/user-attachments/assets/b88b403b-49dd-44b3-9a05-c2e7b578952a)
 
 ---
 *Développé par HALL4Y.*
