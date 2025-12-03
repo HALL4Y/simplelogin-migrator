@@ -6,20 +6,20 @@ echo "================================================="
 
 # 1. Vérification Python
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python 3 manquant. Installez-le ou tapez 'xcode-select --install'."
+    echo "❌ Python 3 manquant. Tapez 'xcode-select --install'."
     read -p "Entrée pour quitter..."
     exit 1
 fi
 
-# 2. Environnement Isolé (Venv)
+# 2. Environnement Isolé
 if [ ! -d ".venv" ]; then
     echo "🛠️  Création de l'environnement sécurisé..."
     python3 -m venv .venv
 fi
 
-# 3. Installation Dépendances
+# 3. Installation Dépendances (Ajout de 'keyring')
 echo "⬇️  Vérification des composants..."
-./.venv/bin/pip install requests --quiet --disable-pip-version-check
+./.venv/bin/pip install requests keyring --quiet --disable-pip-version-check
 
 # 4. Lancement
 echo "🟢 Exécution..."
@@ -28,4 +28,4 @@ echo ""
 
 echo ""
 echo "================================================="
-read -p "👋 Terminé. Supprimez votre clé API de l'interface SimpleLogon (recommandé), puis, appuyez sur Entrée pour fermer..."
+read -p "👋 Terminé. Appuyez sur Entrée pour fermer..."
