@@ -10,21 +10,8 @@ BASE_URL = "https://app.simplelogin.io/api"
 SERVICE_ID = "SimpleLogin_Migrator_HALL4Y"
 USER_ID = "user_api_key"
 
-def get_safe_log_string(email_str):
-    """
-    Génère une version masquée de l'email.
-    Utilise une nouvelle allocation mémoire pour briser le taint tracking.
-    """
-    if not email_str or "@" not in email_str: return "******"
-    try:
-        # On force la création d'une nouvelle string sans lien direct
-        domain = email_str.split("@")[1]
-        # On retourne une f-string qui est structurellement différente
-        return f"user_hidden [at] {domain}"
-    except: return "******"
-
 def clear_clipboard():
-    """Vide le presse-papier."""
+    """Vide le presse-papier macOS de force."""
     try:
         subprocess.run("pbcopy < /dev/null", shell=True)
     except Exception:
@@ -67,7 +54,7 @@ def ask_user_configuration():
     print("\n")
     print(" " + "╔" + "═"*60 + "╗")
     print(" " + "║" + " "*14 + "SIMPLELOGIN BULK MIGRATOR" + " "*21 + "║")
-    print(" " + "║" + " "*17 + "v2.7 - HALL4Y Edition" + " "*22 + "║")
+    print(" " + "║" + " "*17 + "v2.8 - HALL4Y Edition" + " "*22 + "║")
     print(" " + "╚" + "═"*60 + "╝")
     
     api_key = get_api_key_secure()
@@ -89,14 +76,14 @@ def ask_user_configuration():
             print("❌ Format d'email invalide.")
             continue
             
-        # CodeQL Workaround : On passe par une variable intermédiaire explicite
-        log_domain = get_safe_log_string(email_1)
-        print(f"\n✅ Destination validée : {log_domain}")
+        # CORRECTIF CODEQL : On n'affiche PLUS la variable email_1 du tout.
+        # Puisque la comparaison a réussi, l'utilisateur sait ce qu'il a tapé.
+        print(f"\n✅ Destination confirmée et validée.")
         
         return api_key, email_1
 
 def get_mailbox_id(email, headers):
-    print(f"\n🔍 Recherche ID pour la mailbox...") 
+    print(f"\n🔍 Vérification de la mailbox...") 
     resp = requests.get(f"{BASE_URL}/v2/mailboxes", headers=headers)
     if resp.status_code == 401:
         print("⛔️ Clé API invalide ou expirée.")
@@ -131,8 +118,8 @@ def main():
             print("Aucun alias trouvé.")
             return
 
-        safe_log = get_safe_log_string(new_email)
-        print(f"\n⚠️  MIGRATION MASSIVE : {len(aliases)} alias -> {safe_log}")
+        # CORRECTIF CODEQL : Suppression de la variable new_email du log
+        print(f"\n⚠️  MIGRATION MASSIVE : {len(aliases)} alias vont être déplacés.")
         
         if input("👉 Taper 'go' pour lancer : ").lower() != 'go': return
 
@@ -144,6 +131,7 @@ def main():
                 continue
             
             requests.put(f"{BASE_URL}/aliases/{alias['id']}", headers=headers, json={"mailbox_ids": [target_id]})
+            # On affiche uniquement l'ID, aucune donnée personnelle
             print(f"✅ Migré : Alias ID {alias['id']}") 
             time.sleep(0.1)
             
