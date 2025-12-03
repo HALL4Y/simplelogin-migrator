@@ -36,7 +36,8 @@ Le plus haut niveau de sécurité en script :
 * Effacement du presse-papier
 * Code 100% open-source.
 
-<img src="https://github.com/user-attachments/assets/f6edb69f-adef-4bac-8369-98496349b30b" width="500" alt="transcient">
+<img src="https://github.com/user-attachments/assets/e16d3f15-d27f-464b-9ad4-25becd2bfce9" width="500" alt="transcient">\
+<img src="https://github.com/user-attachments/assets/6687783c-eddc-4c4d-bccb-9da51d7ab308" width="500" alt="transcient">
 
 ---
 *Développé par HALL4Y.*
