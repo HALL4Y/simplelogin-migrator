@@ -7,21 +7,22 @@ BASE_URL = "https://app.simplelogin.io/api"
 
 def get_safe_log_string(email_str):
     """
-    Returns a masked version of the email for logging purposes.
-    This creates a new string to avoid CodeQL taint tracking.
+    Génère une chaîne sécurisée pour les logs.
+    Construit une nouvelle chaîne pour éviter le traçage de données sensibles (CodeQL).
     """
     if not email_str or "@" not in email_str:
         return "******"
     
     try:
-        # Split the email to separate user and domain
+        # On découpe l'email
         parts = email_str.split("@")
         if len(parts) != 2:
             return "******"
             
         domain = parts[1]
-        # Construct a completely new string. 
-        # Using a fixed prefix 'user_hidden' breaks the direct link to the user part of the email.
+        # On retourne une NOUVELLE chaîne littérale.
+        # "user_hidden" est une constante, pas une modification de l'input.
+        # Cela brise le lien "User Input -> Log" pour le scanner.
         return f"user_hidden@{domain}"
     except Exception:
         return "******"
@@ -85,7 +86,7 @@ def main():
             return
 
         # LOG SÉCURISÉ (CodeQL Compliance)
-        # Using the safe string generator to satisfy the scanner
+        # On utilise notre générateur de chaîne "safe"
         safe_log = get_safe_log_string(new_email)
         print(f"\n⚠️  MIGRATION MASSIVE : {len(aliases)} alias -> {safe_log}")
         
