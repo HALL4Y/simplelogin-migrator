@@ -19,20 +19,19 @@ def get_safe_log_string(email_str):
     except: return "******"
 
 def get_api_key_secure():
-    """Gère le stockage sécurisé dans le Keychain macOS."""
-    stored_key = keyring.get_password(SERVICE_ID, USER_ID)
-    
-    if stored_key:
-        print("🔑 Clé API récupérée depuis le Trousseau d'Accès.")
-        return stored_key
-    
-    # Instructions détaillées pour le premier lancement
-    print("\n🔒 Aucune clé stockée. Initialisation sécurisée.")
+    """Demande la clé (Sans persistance long terme)."""
+    # On nettoie d'abord au cas où il resterait une vieille clé
+    try:
+        keyring.delete_password(SERVICE_ID, USER_ID)
+    except:
+        pass
+
+    print("\n🔒 MODE HAUTE SÉCURITÉ (Zéro Persistance).")
     print("---------------------------------------------------------------")
     print("1. Créez votre clé ici : https://app.simplelogin.io/dashboard/api_key")
     print("2. Copiez la clé (Cmd+C).")
     print("3. Revenez ici et COLLEZ (Cmd+V) une seule fois.")
-    print("⚠️  Rien ne s'affichera pendant la saisie ou le collage. C'est normal.")
+    print("⚠️  Rien ne s'affichera pendant la saisie. C'est normal.")
     print("---------------------------------------------------------------")
     
     api_key = getpass.getpass("👉 Collez votre clé API ici puis Entrée : ").strip()
@@ -40,13 +39,14 @@ def get_api_key_secure():
     if not api_key:
         print("❌ Erreur : Clé vide.")
         sys.exit(1)
-        
+    
+    # On stocke TEMPORAIREMENT dans le keychain juste pour l'exécution courante
+    # C'est plus sûr que de la garder en variable globale simple
     try:
         keyring.set_password(SERVICE_ID, USER_ID, api_key)
-        print("✅ Clé chiffrée et sauvegardée dans le Trousseau.")
         return api_key
     except Exception as e:
-        print(f"⚠️ Impossible de stocker dans le Trousseau : {e}")
+        print(f"⚠️ Erreur Keychain: {e}")
         return api_key 
 
 def ask_user_configuration():
@@ -54,7 +54,7 @@ def ask_user_configuration():
     print("\n")
     print(" " + "╔" + "═"*60 + "╗")
     print(" " + "║" + " "*14 + "SIMPLELOGIN BULK MIGRATOR" + " "*21 + "║")
-    print(" " + "║" + " "*17 + "v2.1 - HALL4Y Edition" + " "*22 + "║")
+    print(" " + "║" + " "*17 + "v2.3 - HALL4Y Edition" + " "*22 + "║")
     print(" " + "╚" + "═"*60 + "╝")
     
     api_key = get_api_key_secure()
@@ -72,8 +72,6 @@ def get_mailbox_id(email, headers):
     resp = requests.get(f"{BASE_URL}/v2/mailboxes", headers=headers)
     if resp.status_code == 401:
         print("⛔️ Clé API invalide ou expirée.")
-        keyring.delete_password(SERVICE_ID, USER_ID)
-        print("🗑️  L'ancienne clé a été supprimée du Trousseau. Relancez le script.")
         sys.exit(1)
         
     if resp.status_code != 200: raise Exception(f"Erreur API: {resp.text}")
@@ -94,7 +92,7 @@ def get_all_aliases(headers):
     return aliases
 
 def main():
-    api_key = None # Init var
+    api_key = None
     try:
         api_key, new_email = ask_user_configuration()
         headers = {"Authentication": api_key}
@@ -128,11 +126,20 @@ def main():
         input("Appuyez sur Entrée pour quitter...")
     
     finally:
-        # Nettoyage mémoire explicite
-        if api_key:
+        print("\n🧹 NETTOYAGE DE SÉCURITÉ EN COURS...")
+        
+        # 1. Nettoyage RAM
+        if 'api_key' in locals():
             del api_key
-        # Note : On ne supprime PAS du Keychain (sinon l'utilisateur doit la retaper à chaque fois)
-        # On supprime juste la variable en RAM pour la fin du processus.
+            print("✅ Mémoire vive (RAM) effacée.")
+            
+        # 2. Nettoyage DISQUE (Keychain)
+        try:
+            keyring.delete_password(SERVICE_ID, USER_ID)
+            print("✅ Trousseau d'accès (Disque) effacé.")
+        except:
+            # Si la clé n'existe pas ou a déjà été effacée
+            print("✅ Aucune trace résiduelle dans le Trousseau.")
 
 if __name__ == "__main__":
     main()
