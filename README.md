@@ -31,7 +31,7 @@ L'outil crée automatiquement une "bulle" isolée (environnement virtuel) pour f
 * Votre email n'est jamais affiché intégralement
 * Code 100% open-source.
 
-<img src="https://github.com/user-attachments/assets/59c79ad8-f555-4ad3-ab74-a3f454de2dfa" width="600" alt="Démonstration Terminal">
+
 
 ---
 *Développé par HALL4Y.*
