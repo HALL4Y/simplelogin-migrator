@@ -1,10 +1,11 @@
 # 🚀 SimpleLogin Bulk Migrator
+<img alt="image" src="https://github.com/user-attachments/assets/9bfe4e9c-86ad-49d2-a4fb-0a93fbb15f37" width="500" alt="Logo SimpleLogin Migrator"/>
 
-Un outil simple pour migrer massivement tous vos alias **SimpleLogin** vers une nouvelle adresse email (Mailbox) en une seule fois.
+Un outil simple pour migrer massivement tous vos alias **SimpleLogin**\
+vers une nouvelle adresse email (Mailbox) en une seule fois.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![Platform](https://img.shields.io/badge/macOS-Compatible-green)
 
-<img src="https://github.com/user-attachments/assets/5927d3ef-e896-4d81-a231-fe94011c17ed" width="600" alt="Logo SimpleLogin Migrator">
 
 ## 🍎 Mode d'emploi (macOS)
 
@@ -17,6 +18,8 @@ Cette méthode fonctionne sur tous les Mac, quelle que soit la version (Sequoia,
 5. Appuyez sur **Entrée**.
 
 *Le script va s'initialiser, installer ses composants et vous guider.*
+
+<img src="https://github.com/user-attachments/assets/5927d3ef-e896-4d81-a231-fe94011c17ed" width="400" alt="Logo Ascii SimpleLogin Migrator">
 
 ## ⚙️ Fonctionnement
 L'outil crée automatiquement une "bulle" isolée (environnement virtuel) pour fonctionner sans modifier votre système ni vos réglages.
