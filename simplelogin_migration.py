@@ -21,13 +21,14 @@ def get_safe_log_string(email_str):
 
 def clear_clipboard():
     """Vide le presse-papier macOS immédiatement."""
+    print("✂️  Exécution du nettoyage presse-papier...") # On l'annonce avant
     try:
         # La commande 'pbcopy < /dev/null' vide le buffer
         subprocess.run("pbcopy < /dev/null", shell=True)
-        print("✂️  Presse-papier effacé par sécurité.")
-    except Exception:
-        # On ne fait rien si ça échoue (ex: pas sur macOS), on ne veut pas crasher pour ça
-        pass
+        # On confirme que l'ordre est passé
+        print("✅  Presse-papier vidé.")
+    except Exception as e:
+        print(f"⚠️  Échec du nettoyage automatique : {e}")
 
 def get_api_key_secure():
     """Demande la clé (Sans persistance long terme)."""
