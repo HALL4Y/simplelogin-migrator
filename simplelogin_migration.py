@@ -3,6 +3,7 @@ import time
 import sys
 import keyring
 import getpass
+import subprocess  # Nécessaire pour parler au presse-papier macOS
 
 # --- CONFIGURATION CONSTANTE ---
 BASE_URL = "https://app.simplelogin.io/api"
@@ -18,9 +19,19 @@ def get_safe_log_string(email_str):
         return f"user_hidden@{parts[1]}"
     except: return "******"
 
+def clear_clipboard():
+    """Vide le presse-papier macOS immédiatement."""
+    try:
+        # La commande 'pbcopy < /dev/null' vide le buffer
+        subprocess.run("pbcopy < /dev/null", shell=True)
+        print("✂️  Presse-papier effacé par sécurité.")
+    except Exception:
+        # On ne fait rien si ça échoue (ex: pas sur macOS), on ne veut pas crasher pour ça
+        pass
+
 def get_api_key_secure():
     """Demande la clé (Sans persistance long terme)."""
-    # On nettoie d'abord au cas où il resterait une vieille clé
+    # Nettoyage préventif
     try:
         keyring.delete_password(SERVICE_ID, USER_ID)
     except:
@@ -36,12 +47,16 @@ def get_api_key_secure():
     
     api_key = getpass.getpass("👉 Collez votre clé API ici puis Entrée : ").strip()
     
+    # --- INTERVENTION IMMÉDIATE : NETTOYAGE PRESSE-PAPIER ---
+    if api_key:
+        clear_clipboard()
+    # --------------------------------------------------------
+    
     if not api_key:
         print("❌ Erreur : Clé vide.")
         sys.exit(1)
     
-    # On stocke TEMPORAIREMENT dans le keychain juste pour l'exécution courante
-    # C'est plus sûr que de la garder en variable globale simple
+    # Stockage temporaire sécurisé
     try:
         keyring.set_password(SERVICE_ID, USER_ID, api_key)
         return api_key
@@ -54,7 +69,7 @@ def ask_user_configuration():
     print("\n")
     print(" " + "╔" + "═"*60 + "╗")
     print(" " + "║" + " "*14 + "SIMPLELOGIN BULK MIGRATOR" + " "*21 + "║")
-    print(" " + "║" + " "*17 + "v2.3 - HALL4Y Edition" + " "*22 + "║")
+    print(" " + "║" + " "*17 + "v2.4 - HALL4Y Edition" + " "*22 + "║")
     print(" " + "╚" + "═"*60 + "╝")
     
     api_key = get_api_key_secure()
@@ -138,7 +153,6 @@ def main():
             keyring.delete_password(SERVICE_ID, USER_ID)
             print("✅ Trousseau d'accès (Disque) effacé.")
         except:
-            # Si la clé n'existe pas ou a déjà été effacée
             print("✅ Aucune trace résiduelle dans le Trousseau.")
 
 if __name__ == "__main__":
