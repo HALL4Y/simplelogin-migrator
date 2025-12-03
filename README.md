@@ -17,7 +17,7 @@ B. Ouvrez l'application **Terminal** (Cmd+Espace, tapez "Terminal").
 1. **Glissez le fichier `start.command`** depuis votre dossier directement dans la fenêtre du Terminal.
 2. Appuyez sur **Entrée**.
 
-![howtodo](https://github.com/user-attachments/assets/b54510b3-341e-4876-9e0c-345353a5b47c)
+<img src="https://github.com/user-attachments/assets/b54510b3-341e-4876-9e0c-345353a5b47c" width="500" alt="howtodo">
 
 *Le script va s'initialiser, installer ses composants et vous guider.*
 
@@ -36,7 +36,7 @@ Le plus haut niveau de sécurité en script :
 * Effacement du presse-papier
 * Code 100% open-source.
 
-![capture](https://github.com/user-attachments/assets/b88b403b-49dd-44b3-9a05-c2e7b578952a)
+<img src="https://github.com/user-attachments/assets/b88b403b-49dd-44b3-9a05-c2e7b578952a" width="500" alt="transcient">
 
 ---
 *Développé par HALL4Y.*
