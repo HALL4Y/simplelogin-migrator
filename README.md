@@ -1,4 +1,4 @@
-# 🚀 SimpleLogin Bulk Migrator
+# 🚀 SimpleLogin Bulk Migrator (Zero-Trust ed.)
 <img alt="image" src="https://github.com/user-attachments/assets/9bfe4e9c-86ad-49d2-a4fb-0a93fbb15f37" width="500" alt="Logo SimpleLogin Migrator"/>
 
 Un outil simple pour migrer massivement tous vos alias **SimpleLogin**\
@@ -36,7 +36,7 @@ Le plus haut niveau de sécurité en script :
 * Effacement du presse-papier
 * Code 100% open-source.
 
-<img src="https://github.com/user-attachments/assets/b88b403b-49dd-44b3-9a05-c2e7b578952a" width="500" alt="transcient">
+<img src="https://github.com/user-attachments/assets/f6edb69f-adef-4bac-8369-98496349b30b" width="500" alt="transcient">
 
 ---
 *Développé par HALL4Y.*
