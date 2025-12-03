@@ -2,7 +2,8 @@
 <img alt="image" src="https://github.com/user-attachments/assets/9bfe4e9c-86ad-49d2-a4fb-0a93fbb15f37" width="500" alt="Logo SimpleLogin Migrator"/>
 
 Un outil simple pour migrer massivement tous vos alias **SimpleLogin**\
-vers une nouvelle adresse email (Mailbox) en une seule fois.
+vers une nouvelle adresse email (Mailbox) en une seule fois.\
+C'est aussi le script le plus sécurisé en terme de protection possible.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![Platform](https://img.shields.io/badge/macOS-Compatible-green)
 
@@ -19,16 +20,19 @@ Cette méthode fonctionne sur tous les Mac, quelle que soit la version (Sequoia,
 
 *Le script va s'initialiser, installer ses composants et vous guider.*
 
-<img src="https://github.com/user-attachments/assets/5927d3ef-e896-4d81-a231-fe94011c17ed" width="400" alt="Logo Ascii SimpleLogin Migrator">
+
 
 ## ⚙️ Fonctionnement
 L'outil crée automatiquement une "bulle" isolée (environnement virtuel) pour fonctionner sans modifier votre système ni vos réglages.
 
 ## 🔒 Sécurité
-* Votre clé API n'est **jamais stockée**. Elle est utilisée en mémoire vive le temps de l'opération puis oubliée.
+* Le plus haut niveau de sécurité en script
+* Réduction des attaques par interception
+* Le script stock votre clé API dans votre trousseau Apple.
+* Votre email n'est jamais affiché intégralement
 * Code 100% open-source.
 
-<img src="https://github.com/user-attachments/assets/2884cc83-c240-44a4-bfa1-991f36ca7696" width="600" alt="Démonstration Terminal">
+
 
 ---
 *Développé par HALL4Y.*
