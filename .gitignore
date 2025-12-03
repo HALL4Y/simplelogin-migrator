@@ -1,6 +1,6 @@
-.venv/
-__pycache__/
 .DS_Store
-*.log
-*.jpg
-*.png
+.DS_Store?
+._*
+.Trashes
+ehthumbs.db
+Thumbs.db
